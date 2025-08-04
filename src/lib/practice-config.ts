@@ -106,6 +106,39 @@ export const practiceConfigs: Record<string, PracticeConfig> = {
       focus: 'beauty care'
     }
   },
+  'unrivalledcareexpertisetr': {
+    id: 'unrivalledcareexpertisetr',
+    name: 'Unrivalled Care & ExpertiseTrusted for over 40 years',
+    doctor: 'Experts in Cosmetic & Reconstructive Procedures',
+    location: 'London, UK',
+    agentId: 'agent_01k0a57qgte4k8yrmt4tbm9s60',
+    type: 'beauty' as const,
+    port: 3000,
+    subdomain: 'unrivalledcareexpertisetr',
+    
+    chat: {
+      assistantName: 'Robin',
+      initialMessage: 'Thank you for contacting Unrivalled Care & ExpertiseTrusted for over 40 years! I am Robin, your beauty assistant. How can I help you today?',
+      systemPrompt: `You are Robin, the assistant at Unrivalled Care & ExpertiseTrusted for over 40 years in London, UK. Help patients with beauty services.`
+    },
+    
+    voice: {
+      firstMessage: 'Thank you for calling Unrivalled Care & ExpertiseTrusted for over 40 years! This is Robin. How can I assist you today?'
+    },
+    
+    services: [
+      {
+            "name": "General Consultation",
+            "description": "Comprehensive consultation"
+      }
+],
+    
+    branding: {
+      primaryColor: '#e91e63',
+      tagline: 'Your beauty assistant',
+      focus: 'beauty care'
+    }
+  },
   'advanced-spine-care': {
     id: 'advanced-spine-care',
     name: 'Advanced Spine Care',
