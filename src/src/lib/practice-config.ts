@@ -40,72 +40,6 @@ export interface PracticeConfig {
 }
 
 export const practiceConfigs: Record<string, PracticeConfig> = {
-  'unrivalledcareexpertisetr': {
-    id: 'unrivalledcareexpertisetr',
-    name: 'Unrivalled Care & ExpertiseTrusted for over 40 years',
-    doctor: 'Experts in Cosmetic & Reconstructive Procedures',
-    location: 'London, UK',
-    agentId: 'agent_01k0a57qgte4k8yrmt4tbm9s60',
-    type: 'beauty' as const,
-    port: 3000,
-    subdomain: 'unrivalledcareexpertisetr',
-    
-    chat: {
-      assistantName: 'Robin',
-      initialMessage: 'Thank you for contacting Unrivalled Care & ExpertiseTrusted for over 40 years! I am Robin, your beauty assistant. How can I help you today?',
-      systemPrompt: `You are Robin, the assistant at Unrivalled Care & ExpertiseTrusted for over 40 years in London, UK. Help patients with beauty services.`
-    },
-    
-    voice: {
-      firstMessage: 'Thank you for calling Unrivalled Care & ExpertiseTrusted for over 40 years! This is Robin. How can I assist you today?'
-    },
-    
-    services: [
-      {
-            "name": "General Consultation",
-            "description": "Comprehensive consultation"
-      }
-],
-    
-    branding: {
-      primaryColor: '#e91e63',
-      tagline: 'Your beauty assistant',
-      focus: 'beauty care'
-    }
-  },
-  'unrivalledcareexpertisetr': {
-    id: 'unrivalledcareexpertisetr',
-    name: 'Unrivalled Care & ExpertiseTrusted for over 40 years',
-    doctor: 'Experts in Cosmetic & Reconstructive Procedures',
-    location: 'London, UK',
-    agentId: 'agent_01k0a57qgte4k8yrmt4tbm9s60',
-    type: 'beauty' as const,
-    port: 3000,
-    subdomain: 'unrivalledcareexpertisetr',
-    
-    chat: {
-      assistantName: 'Robin',
-      initialMessage: 'Thank you for contacting Unrivalled Care & ExpertiseTrusted for over 40 years! I am Robin, your beauty assistant. How can I help you today?',
-      systemPrompt: `You are Robin, the assistant at Unrivalled Care & ExpertiseTrusted for over 40 years in London, UK. Help patients with beauty services.`
-    },
-    
-    voice: {
-      firstMessage: 'Thank you for calling Unrivalled Care & ExpertiseTrusted for over 40 years! This is Robin. How can I assist you today?'
-    },
-    
-    services: [
-      {
-            "name": "General Consultation",
-            "description": "Comprehensive consultation"
-      }
-],
-    
-    branding: {
-      primaryColor: '#e91e63',
-      tagline: 'Your beauty assistant',
-      focus: 'beauty care'
-    }
-  },
   'advanced-spine-care': {
     id: 'advanced-spine-care',
     name: 'Advanced Spine Care',
@@ -2153,7 +2087,7 @@ export function getCurrentPractice(): PracticeConfig {
   
   if (typeof window === 'undefined') {
     // Server-side: check environment variable first
-    const practiceId = process.env.PRACTICE_ID;
+    const practiceId = process.env.PRACTICE_ID || process.env.NEXT_PUBLIC_PRACTICE_ID;
     if (practiceId && practiceConfigs[practiceId]) {
       return practiceConfigs[practiceId];
     }
@@ -2202,6 +2136,25 @@ export function getCurrentPractice(): PracticeConfig {
     
     // Default server-side fallback
     return practiceConfigs['advanced-spine-care'];
+  }
+  
+  // Check for NEXT_PUBLIC_PRACTICE_ID first (client-side)
+  if (typeof window !== 'undefined') {
+    // Try window.ENV first (if available)
+    if (window.ENV?.NEXT_PUBLIC_PRACTICE_ID) {
+      const practiceId = window.ENV.NEXT_PUBLIC_PRACTICE_ID;
+      if (practiceConfigs[practiceId]) {
+        return practiceConfigs[practiceId];
+      }
+    }
+    
+    // Fallback to process.env (Next.js automatically exposes NEXT_PUBLIC_ variables)
+    if (process.env.NEXT_PUBLIC_PRACTICE_ID) {
+      const practiceId = process.env.NEXT_PUBLIC_PRACTICE_ID;
+      if (practiceConfigs[practiceId]) {
+        return practiceConfigs[practiceId];
+      }
+    }
   }
   
   const port = window.location.port;
